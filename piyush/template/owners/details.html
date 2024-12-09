@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostel Listing</title>
+    
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9fafc;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #34495e;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        p {
+            margin: 8px 0;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        /* Hostel Info */
+        .hostel-info {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .hostel-info p {
+            font-weight: 500;
+        }
+
+        .hostel-info p:first-child {
+            font-size: 18px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        /* Image Section */
+        .image-list {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .image-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .image-list ul li {
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .image-list ul li img {
+            width: 200px;
+            height: auto;
+            border: 2px solid #34495e;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .image-list ul li img:hover {
+            transform: scale(1.05);
+        }
+
+        .no-images {
+            color: #e74c3c;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% for hostel in hostel %}
+        <h2>Hostel Images</h2>
+
+        <div class="image-list">
+            {% if images %}
+            <ul>
+                {% for image in images %}
+                <li><img src="{{ image.image.url }}" alt="Hostel Image"></li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="no-images">No images available.</p>
+            {% endif %}
+        </div>
+        <div class="hostel-info">
+            <p>Name: {{ hostel.name }}</p>
+            <p>Location: {{ hostel.location }}</p>
+            <p>Contact: {{ hostel.contact }}</p>
+            <p>Price per Month: ₹{{ hostel.price }}</p>
+        </div>
+        {% endfor %}
+
+        
+
+        
+    </div>
+</body>
+</html>

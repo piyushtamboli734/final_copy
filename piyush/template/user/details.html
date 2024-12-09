@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostel Listings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .hostel {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 15px;
+        }
+
+        .hostel p {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .hostel p span {
+            font-weight: bold;
+        }
+
+        img {
+            margin-top: 10px;
+            border-radius: 8px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .no-images {
+            font-size: 18px;
+            color: #888;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    {% for hostel in hostel %}
+        <div class="hostel">
+            <p><span>Name:</span> {{ hostel.name }}</p>
+            <p><span>Location:</span> {{ hostel.location }}</p>
+            <p><span>Contact:</span> {{ hostel.contact }}</p>
+            <p><span>Price per Month:</span> ₹{{ hostel.price }}</p>
+        </div>
+    {% endfor %}
+
+    <h2>Images</h2>
+    {% if images %}
+        <ul>
+            {% for image in images %}
+                <li><img src="{{ image.image.url }}" alt="Hostel Image" width="200"></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="no-images">No images available.</p>
+    {% endif %}
+</div>
+
+</body>
+</html>

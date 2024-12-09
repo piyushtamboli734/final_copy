@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostel & Mess Finder</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+    <header>
+        <h1>Hostel & Mess Finder</h1>
+        <p>Your gateway to comfortable living during college!</p>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </header>
+
+    <nav>
+        <a href="/owner/logout/">Logout</a>
+        <a href="#upload">List Your Hostel/Mess</a>
+        <a href="#listings">View Listings</a>
+    </nav>
+
+    <div class="container">
+        <!-- Upload Form -->
+        <section id="upload" class="upload-form">
+            <h2>Add Your Hostel/Mess Details</h2>
+            <form action="/owners/upload/" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="text" name="name" placeholder="Hostel/Mess Name" required>
+                <input type="text" name="location" placeholder="Location" required>
+                <input type="text" name="contact" placeholder="Contact Details" required>
+                <input type="number" name="price" placeholder="Price per Month" required>
+                <input type="file" name="images" accept="image/*" multiple required>
+                
+                <label>
+                    <input type="radio" name="type" value="Mess" required> Mess
+                </label>
+                <label>
+                    <input type="radio" name="type" value="Hostel" required> Hostel
+                </label>
+                <br>
+                <input type="submit" value="Submit for Review" style="margin-top: 10px;">
+            </form>
+        </section>
+
+        <!-- Listings -->
+        <section id="listings" class="listing-section">
+            <h2>Available Hostels & Messes</h2>
+            {% if hostels %}
+                {% for hostel in hostels %}
+                    <div class="listing">
+                        <!-- <img src="hostel1.jpg" alt="Hostel 1"> -->
+                        <!-- <h3>Hostel {{ forloop.counter }}</h3> -->
+                        <h3>Hostel: {{ hostel.name }}</h3>
+                        <p>Location: {{ hostel.location }}</p>
+                        <p>Contact: {{ hostel.contact }}</p>
+                        <p>Price: {{ hostel.price}}/month</p>
+                        <a href="/owner/hotelmessdetails/{{hostel.id}}/"> <button> View </button> </a>
+                        <a href="/owner/editmessdetails/{{hostel.id}}/"> <button> Edit </button> </a>
+                        <a href="/owner/deletemessdetails/{{hostel.id}}/"> <button> Delete </button> </a>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="listing">
+                    <h2>No Hostel Meass Found</h2>
+                </div>
+            {% endif %}
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Hostel & Mess Finder. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
